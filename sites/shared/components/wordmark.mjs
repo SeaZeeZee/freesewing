@@ -1,43 +1,25 @@
 import Link from 'next/link'
-import { useTheme } from 'shared/hooks/use-theme.mjs'
 
-export const colors = [
-  'red',
-  'orange',
-  'yellow',
-  'lime',
-  'green',
-  'cyan',
-  'blue',
-  'indigo',
-  'violet',
-  'purple',
-]
-
-export const InnerWordMark = () => {
-  const { spectrum } = useTheme()
-
-  return (
-    <span style={{ letterSpacing: '-0.1rem' }}>
-      <span className={`text-${spectrum[0]} hover:text-${spectrum[9]}`}>F</span>
-      <span className={`text-${spectrum[1]} hover:text-${spectrum[8]}`}>r</span>
-      <span className={`text-${spectrum[2]} hover:text-${spectrum[7]}`}>e</span>
-      <span className={`text-${spectrum[3]} hover:text-${spectrum[6]}`}>e</span>
-      <span className={`text-${spectrum[4]} hover:text-${spectrum[5]}`}>S</span>
-      <span className={`text-${spectrum[5]} hover:text-${spectrum[4]}`}>e</span>
-      <span className={`text-${spectrum[6]} hover:text-${spectrum[3]}`}>w</span>
-      <span className={`text-${spectrum[7]} hover:text-${spectrum[2]}`}>i</span>
-      <span className={`text-${spectrum[8]} hover:text-${spectrum[1]}`}>n</span>
-      <span className={`text-${spectrum[9]} hover:text-${spectrum[0]}`}>g</span>
-    </span>
-  )
-}
+export const InnerWordMark = () => (
+  <span style={{ letterSpacing: '-0.1rem' }} className="group">
+    <span className="text-spectrum-0 group-hover:text-spectrum-focus-0">F</span>
+    <span className="text-spectrum-1 group-hover:text-spectrum-focus-1">r</span>
+    <span className="text-spectrum-2 group-hover:text-spectrum-focus-2">e</span>
+    <span className="text-spectrum-3 group-hover:text-spectrum-focus-3">e</span>
+    <span className="text-spectrum-4 group-hover:text-spectrum-focus-4">S</span>
+    <span className="text-spectrum-5 group-hover:text-spectrum-focus-5">e</span>
+    <span className="text-spectrum-7 group-hover:text-spectrum-focus-7">w</span>
+    <span className="text-spectrum-8 group-hover:text-spectrum-focus-8">i</span>
+    <span className="text-spectrum-8 group-hover:text-spectrum-focus-8">n</span>
+    <span className="text-spectrum-10 group-hover:text-spectrum-focus-10">g</span>
+  </span>
+)
 
 export const WordMark = () => (
   <Link
     href="/"
     role="button"
-    className="btn btn-ghost btn-sm normal-case text-2xl hover:bg-transparent font-bold px-0 -mt-1"
+    className="btn btn-ghost btn-sm normal-case text-4xl hover:bg-transparent font-bold px-0 -mt-1"
   >
     <InnerWordMark />
   </Link>

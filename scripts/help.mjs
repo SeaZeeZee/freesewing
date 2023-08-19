@@ -45,8 +45,8 @@ console.log(`
   ${chalk.gray('≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡')}
 
   Our development environment for ${chalk.bold('designs')} and ${chalk.bold(
-    'plugins'
-  )} lives in ${chalk.green('sites/lab')}
+  'plugins'
+)} lives in ${chalk.green('sites/lab')}
   We refer to it as ${chalk.bold('the FreeSewing lab')}.
   It can display any design in this repository and will hot-reload any changes you make to a design.
 

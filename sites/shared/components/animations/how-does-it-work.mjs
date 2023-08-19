@@ -9,14 +9,14 @@ import { AlbertFront } from 'shared/components/designs/linedrawings/albert.mjs'
 export const ns = ['homepage']
 
 const lineDrawings = [
-  <AaronFront key={1} className="h-72 md:h-96" />,
-  <BruceBack key={2} className="h-72 md:h-96" />,
-  <SimonBack key={3} className="h-72 md:h-96" />,
-  <WahidFront key={4} className="h-72 md:h-96" />,
-  <AlbertFront key={5} className="h-72 md:h-96" />,
-  <BruceFront key={6} className="h-72 md:h-96" />,
-  <SimonFront key={7} className="h-72 md:h-96" />,
-  <WahidBack key={8} className="h-72 md:h-96" />,
+  AaronFront,
+  BruceFront,
+  BruceBack,
+  SimonFront,
+  SimonBack,
+  WahidFront,
+  WahidBack,
+  AlbertFront,
 ]
 
 const patternTweaks = [
@@ -92,7 +92,51 @@ const Title = ({ txt }) => (
   </div>
 )
 
-const slides = [0, 1, 2, 3, 4, 5, 6, 7]
+/** A display switcher that handles its own transition animations */
+const useCarousel = (i, items) => {
+  const [Item, setItem] = useState(() => items[i])
+  const [opacity, setOpacity] = useState(0)
+
+  // when the index changes, switch the opacity
+  useEffect(() => {
+    // set to 0
+    setOpacity(0)
+    // wait for the animation to end
+    setTimeout(() => {
+      // set the next item
+      setItem(() => items[i])
+      // set the opacity back to full
+      setOpacity(100)
+    }, 700)
+  }, [i, items])
+
+  return { opacity, Item }
+}
+
+const transitionClasses = 'duration-700 ease-in-out transition-opacity'
+const LineDrawing = ({ i }) => {
+  const { Item, opacity } = useCarousel(Math.floor(i), lineDrawings)
+  return (
+    <div
+      className={`${transitionClasses} opacity-${opacity}
+     w-full flex flex-row items-center h-full overflow-hidden`}
+    >
+      <Item className="h-full m-auto" />
+    </div>
+  )
+}
+
+const measieImages = [0, 1, 2, 3, 4, 5, 6, 7].map((i) => `/img/models/model-${i}.png`)
+const MeasiesImage = ({ i }) => {
+  const { Item, opacity } = useCarousel(Math.floor(i), measieImages)
+  return (
+    <img
+      src={Item}
+      className={`h-72 md:h-96 ${transitionClasses} opacity-${opacity} m-auto`}
+      alt=""
+    />
+  )
+}
 
 export const HowDoesItWorkAnimation = () => {
   const { t } = useTranslation(ns)
@@ -100,48 +144,33 @@ export const HowDoesItWorkAnimation = () => {
   const [halfStep, setHalfStep] = useState(0)
 
   useEffect(() => {
-    setTimeout(() => {
-      if (step > 6) setStep(0)
-      else setStep(step + 1)
-      if (halfStep > 7) setHalfStep(0)
-      else setHalfStep(halfStep + 0.5)
-    }, 800)
-  }, [step])
+    const intervalId = setInterval(() => {
+      setStep((curStep) => {
+        if (curStep === patternTweaks.length - 1) return 0
+        return curStep + 1
+      })
+
+      setHalfStep((curHalf) => {
+        if (curHalf === measieImages.length - 1) return 0
+        return curHalf + 0.5
+      })
+    }, 4000)
+
+    return () => clearInterval(intervalId)
+  })
 
   return (
     <div className="flex flex-col md:grid md:grid-cols-3">
       <div className="relative w-full">
         <div className="relative h-72 md:h-96 overflow-hidden">
-          {slides.map((i) => (
-            <div
-              key={i}
-              className={`duration-700 ease-in-out transition-all ${
-                step === i ? 'opacity-1' : 'opacity-0'
-              } absolute top-0 text-center w-full`}
-            >
-              <div className="w-full flex flex-row items-center h-72 md:h-96 w-full justify-center">
-                {lineDrawings[i]}
-              </div>
-            </div>
-          ))}
+          <LineDrawing i={step} />
+          <Nr nr={1} />
+          <Title txt={t('pickAnyDesign')} />
         </div>
-        <Nr nr={1} />
-        <Title txt={t('pickAnyDesign')} />
       </div>
       <div className="relative w-full">
         <div className="relative h-72 md:h-96 overflow-hidden">
-          {slides.map((i) => (
-            <div
-              key={i}
-              className={`duration-700 ease-in-out transition-all ${
-                Math.floor(halfStep) === i ? 'opacity-1' : 'opacity-0'
-              } absolute top-0 text-center w-full`}
-            >
-              <div className="w-full flex flex-row items-center h-72 md:h-96 w-full justify-center">
-                <img src={`/img/models/model-${i}.png`} className="h-72 md:h-96 shrink-0 px-8" />
-              </div>
-            </div>
-          ))}
+          <MeasiesImage i={halfStep} />
           <Nr nr={2} />
           <Title txt={t('addASet')} />
         </div>
@@ -149,7 +178,7 @@ export const HowDoesItWorkAnimation = () => {
       <div className="relative w-full">
         <div className="relative h-96 overflow-hidden">
           <div className="w-full flex flex-row items-center h-72 md:h-96 w-full justify-center">
-            <Pattern key={step} i={step} />
+            <Pattern i={step} />
           </div>
           <Nr nr={3} />
           <Title txt={t('customizeYourPattern')} />

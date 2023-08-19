@@ -34,14 +34,14 @@ export const SampleItem = ({ name, passProps, t, updateFunc }) => {
       />
       <div
         className={`collapse-title flex items-center p-2 h-auto min-h-0 ${
-          checked ? 'bg-primary text-primary-content' : ''
+          checked ? 'bg-primary text-primary-content' : 'text-base-content'
         }`}
       >
         <input
           ref={input}
           type="radio"
           checked={checked}
-          className="radio radio-primary mr-2 radio-sm"
+          className="radio checked:radio-primary radio-secondary mr-2 radio-sm"
           readOnly
         />
         <span className="ml-2">{t([name + '.t', name])}</span>

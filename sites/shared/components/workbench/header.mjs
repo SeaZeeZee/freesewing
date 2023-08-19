@@ -41,12 +41,12 @@ export const NavButton = ({
   children,
   onClick = false,
   active = false,
-  extraClasses = 'lg:bg-neutral lg:text-neutral-content lg:hover:bg-secondary lg:hover:text-secondary-content hover:text-secondary',
+  extraClasses = 'lg:hover:bg-secondary-focus lg:hover:text-secondary-content hover:text-secondary',
 }) => {
   const className = `w-full flex flex-row items-center px-4 py-2 ${extraClasses} ${
-    active ? 'text-secondary' : ''
+    active ? 'bg-secondary text-secondary-content' : 'lg:text-base-content'
   }`
-  const span = <span className="font-bold block grow text-left">{label}</span>
+  const span = <span className="block grow text-left">{label}</span>
 
   return onClick ? (
     <button {...{ onClick, className }} title={label}>
@@ -70,15 +70,12 @@ const NavIcons = ({ setView, setDense, dense, view }) => {
       <NavButton
         onClick={() => setDense(!dense)}
         label={t('workbench:viewMenu')}
-        extraClasses="hidden lg:flex text-success bg-neutral hover:bg-success hover:text-neutral"
+        extraClasses="hidden lg:flex hover:bg-primary hover:text-primary-content "
       >
         {dense ? (
-          <RightIcon
-            className={`${iconSize} group-hover:animate-[bounceright_1s_infinite] animate-[bounceright_1s_5]`}
-            stroke={4}
-          />
+          <RightIcon className={`${iconSize}`} stroke={4} />
         ) : (
-          <LeftIcon className={`${iconSize} animate-bounce-right`} stroke={4} />
+          <LeftIcon className={`${iconSize}`} stroke={4} />
         )}
       </NavButton>
       <NavButton
@@ -163,11 +160,10 @@ export const WorkbenchHeader = ({ view, setView }) => {
   return (
     <MenuWrapper
       Icon={icons[view]}
-      wrapperClass={`w-64 min-h-screen pt-4
-        bg-neutral
+      wrapperClass={`w-64 min-h-screen 
+        bg-base-200
         shrink-0 grow-0 self-stretch
         transition-all
-        drop-shadow-xl
         ${dense ? '-ml-52' : 'ml-0'}`}
       buttonClass={`order-last bottom-16`}
       keepOpenOnClick={false}

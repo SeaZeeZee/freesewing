@@ -13,7 +13,6 @@ import {
   ClearIcon,
 } from 'shared/components/icons.mjs'
 import { ClearAllButton } from 'shared/components/workbench/menus/core-settings/index.mjs'
-import { shownHeaderSelector } from 'shared/components/wrappers/header.mjs'
 
 export const ns = ['common', 'core-settings', 'ui-settings']
 
@@ -30,15 +29,15 @@ const ZoomOutIcon = (props) => (
 )
 
 const IconButton = ({ Icon, onClick, dflt = true, title, hide = false, extraClasses = '' }) => (
-  <div className="tooltip tooltip-bottom tooltip-primary flex items-center" data-tip={title}>
+  <div className={`${!hide && 'tooltip'} tooltip-bottom tooltip-accent`} data-tip={title}>
     <button
       onClick={onClick}
-      className={`text-${dflt ? 'neutral-content' : 'accent'} hover:text-secondary-focus ${
-        hide ? 'invisible' : ''
-      } ${extraClasses}`}
+      className={`${
+        dflt ? 'text-base-content bg-transparent' : 'bg-accent text-accent-content'
+      } p-2 hover:bg-accent hover:text-accent-content ${hide ? 'invisible' : ''} ${extraClasses}`}
       title={title}
     >
-      <Icon />
+      <Icon className="w-6 h-6" />
     </button>
   </div>
 )
@@ -48,7 +47,7 @@ const smZoomClasses =
 const ZoomButtons = ({ t, zoomFunctions, zoomed }) => {
   if (!zoomFunctions) return null
   return (
-    <div className="flex flex-col lg:flex-row items-center lg:content-center lg:gap-4">
+    <div className="flex flex-col lg:flex-row items-center lg:content-center lg:gap-2">
       <IconButton
         Icon={ClearIcon}
         onClick={zoomFunctions.reset}
@@ -89,15 +88,11 @@ export const ViewHeader = ({ update, settings, ui, control, setSettings }) => {
   useMobileAction('zoom', { order: 0, actionContent: headerZoomButtons })
 
   return (
-    <div
-      className={`hidden lg:flex sticky top-0 z-20 ${shownHeaderSelector(
-        'lg:top-24'
-      )} transition-[top] duration-300 ease-in-out`}
-    >
-      <div className="hidden lg:flex flex-row flex-wrap gap-4 py-4 pt-4 w-full bg-neutral text-neutral-content items-center justify-center">
+    <div className={`hidden lg:flex sticky top-0 z-20 transition-[top] duration-300 ease-in-out`}>
+      <div className="hidden lg:flex flex-row flex-wrap gap-2 w-full bg-base-200 text-base-content items-center justify-center">
         {headerZoomButtons}
         <Spacer />
-        <div className="flex flex-row items-center gap-4">
+        <div className="flex flex-row items-center gap-2">
           <IconButton
             Icon={SaIcon}
             dflt={settings.sabool ? false : true}
@@ -136,17 +131,17 @@ export const ViewHeader = ({ update, settings, ui, control, setSettings }) => {
         </div>
         <Spacer />
         <div
-          className="tooltip tooltip-primary tooltip-bottom flex flex-row items-center"
+          className="tooltip tooltip-accent tooltip-bottom flex flex-row items-center"
           data-tip={t('ui-settings:control.t')}
         >
           {[1, 2, 3, 4, 5].map((score) => (
-            <button onClick={() => update.setControl(score)} className="text-primary" key={score}>
+            <button onClick={() => update.setControl(score)} className="text-accent" key={score}>
               <BulletIcon fill={control >= score ? true : false} />
             </button>
           ))}
         </div>
         <Spacer />
-        <div className="flex flex-row items-center gap-4">
+        <div className="flex flex-row items-center gap-2">
           <IconButton
             Icon={RocketIcon}
             dflt={ui.renderer !== 'svg'}
@@ -155,8 +150,12 @@ export const ViewHeader = ({ update, settings, ui, control, setSettings }) => {
           />
         </div>
         <Spacer />
-        <div className="flex flex-row items-center gap-4">
-          <ClearAllButton setSettings={setSettings} compact />
+        <div className="flex flex-row items-center gap-2">
+          <ClearAllButton
+            setSettings={setSettings}
+            compact
+            className="text-primary hover:bg-primary hover:text-primary-content p-2"
+          />
         </div>
       </div>
     </div>

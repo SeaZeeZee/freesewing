@@ -119,7 +119,7 @@ export const NumberInput = ({
     <input
       type="text"
       inputMode="number"
-      className={`input input-bordered ${className || 'input-sm grow text-base-content'}
+      className={`input input-bordered ${className || 'input-sm  grow text-base-content'}
         ${valid.current === false && 'input-error'}
         ${valid.current && 'input-success'}
       `}
@@ -191,7 +191,7 @@ const useBoolConfig = (name, config) => {
 }
 
 /** a toggle input for list/boolean values */
-export const ListToggle = ({ config, changed, updateFunc, name }) => {
+export const ListToggle = ({ config, changed, updateFunc, name, color }) => {
   const boolConfig = useBoolConfig(name, config)
   const handleChange = useSharedHandlers({ dflt: boolConfig.dflt, updateFunc, name })
 
@@ -202,10 +202,12 @@ export const ListToggle = ({ config, changed, updateFunc, name }) => {
 
   const checked = boolConfig.dflt == false ? changed : !changed
 
+  //line 89 changes the text colour inside the checkbox
   return (
     <input
       type="checkbox"
-      className={`toggle ${changed ? 'toggle-accent' : 'toggle-secondary'}`}
+      // force tailwind: toggle-accent toggle-primary toggle-secondary
+      className={`toggle toggle-${color}`}
       checked={checked}
       onChange={doToggle}
       onClick={(evt) => evt.stopPropagation()}
@@ -238,7 +240,7 @@ export const ListInput = ({ name, config, current, updateFunc, compact = false, 
           <ChoiceButton
             key={entry}
             title={t(`${titleKey}.t`)}
-            color={entry === config.dflt ? 'primary' : 'secondary'}
+            color={'primary'}
             active={changed ? current === entry : entry === config.dflt}
             onClick={() => handleChange(entry)}
           >
@@ -342,17 +344,13 @@ export const SliderInput = ({
           />
         ) : (
           <>
-            <span className="opacity-50">
+            <span>
               <span dangerouslySetInnerHTML={{ __html: valFormatter(min) + suffix }} />
             </span>
-            <span
-              className={`font-bold ${
-                displayVal === config.dflt ? 'text-secondary' : 'text-accent'
-              }`}
-            >
+            <span className={`font-bold ${changed ? 'text-accent' : 'text-secondary'}`}>
               <span dangerouslySetInnerHTML={{ __html: valFormatter(displayVal) + suffix }} />
             </span>
-            <span className="opacity-50">
+            <span>
               <span dangerouslySetInnerHTML={{ __html: valFormatter(max) + suffix }} />
             </span>
           </>
@@ -480,7 +478,7 @@ export const ConstantInput = ({
       type={type}
       className={`
       input input-bordered w-full text-base-content
-      input-${changed ? 'secondary' : 'accent'}
+      input-${changed ? 'accent' : 'secondary'}
     `}
       value={changed ? current : config.dflt}
       onChange={(evt) => updateFunc([name], evt.target.value)}
