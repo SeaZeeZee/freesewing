@@ -4,7 +4,6 @@ import { Bruce, BruceFront, BruceBack } from 'shared/components/designs/linedraw
 import { Simon, SimonFront, SimonBack } from 'shared/components/designs/linedrawings/simon.mjs'
 import { Wahid, WahidFront, WahidBack } from 'shared/components/designs/linedrawings/wahid.mjs'
 import { Bee, BeeFront } from 'shared/components/designs/linedrawings/bee.mjs'
-import { Lucy, LucyFront } from 'shared/components/designs/linedrawings/lucy.mjs'
 
 export const lineDrawingsFront = {
   aaron: AaronFront,
@@ -13,7 +12,6 @@ export const lineDrawingsFront = {
   simon: SimonFront,
   wahid: WahidFront,
   bee: BeeFront,
-  lucy: LucyFront,
 }
 
 export const lineDrawingsBack = {
@@ -30,5 +28,4 @@ export const lineDrawings = {
   simon: Simon,
   wahid: Wahid,
   bee: Bee,
-  lucy: Lucy,
 }

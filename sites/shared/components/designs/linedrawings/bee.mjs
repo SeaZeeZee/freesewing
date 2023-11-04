@@ -10,7 +10,7 @@ export const Bee = ({
   stroke = stroke * strokeScale
 
   return (
-    <LineDrawingWrapper viewBox="0 0 148 119" {...{ className, stroke }}>
+    <LineDrawingWrapper viewBox="0 0 74 116" {...{ className, stroke }}>
       <Front stroke={stroke} />
     </LineDrawingWrapper>
   )
@@ -27,7 +27,7 @@ export const BeeFront = ({
   stroke = stroke * strokeScale
 
   return (
-    <LineDrawingWrapper viewBox="0 0 148 119" {...{ className, stroke }}>
+    <LineDrawingWrapper viewBox="0 0 74 116" {...{ className, stroke }}>
       <Front stroke={stroke} />
     </LineDrawingWrapper>
   )
