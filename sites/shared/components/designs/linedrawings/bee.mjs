@@ -10,7 +10,7 @@ export const Bee = ({
   stroke = stroke * strokeScale
 
   return (
-    <LineDrawingWrapper viewBox="0 0 74 116" {...{ className, stroke }}>
+    <LineDrawingWrapper viewBox="0 0 74 140" {...{ className, stroke }}>
       <Front stroke={stroke} />
     </LineDrawingWrapper>
   )
@@ -20,14 +20,14 @@ export const Bee = ({
  * React component for the front
  */
 export const BeeFront = ({
-  className = 'w-64', // CSS classes to apply
+  className = 'h-full max-w-full m-auto text-base-content linedrawing', // CSS classes to apply
   stroke = 1, // Stroke width to use
 }) => {
   // Normalize stroke across designs
   stroke = stroke * strokeScale
 
   return (
-    <LineDrawingWrapper viewBox="0 0 74 116" {...{ className, stroke }}>
+    <LineDrawingWrapper viewBox="0 0 74 140" {...{ className, stroke }}>
       <Front stroke={stroke} />
     </LineDrawingWrapper>
   )
