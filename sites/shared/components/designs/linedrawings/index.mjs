@@ -3,6 +3,8 @@ import { Albert, AlbertFront } from 'shared/components/designs/linedrawings/albe
 import { Bruce, BruceFront, BruceBack } from 'shared/components/designs/linedrawings/bruce.mjs'
 import { Simon, SimonFront, SimonBack } from 'shared/components/designs/linedrawings/simon.mjs'
 import { Wahid, WahidFront, WahidBack } from 'shared/components/designs/linedrawings/wahid.mjs'
+import { Bee, BeeFront, BeeBack } from 'shared/components/designs/linedrawings/bee.mjs'
+import { Lucy, LucyFront } from 'shared/components/designs/linedrawings/lucy.mjs'
 
 export const lineDrawingsFront = {
   aaron: AaronFront,
@@ -10,6 +12,8 @@ export const lineDrawingsFront = {
   bruce: BruceFront,
   simon: SimonFront,
   wahid: WahidFront,
+  bee: BeeFront,
+  lucy: LucyFront,
 }
 
 export const lineDrawingsBack = {
@@ -17,6 +21,7 @@ export const lineDrawingsBack = {
   bruce: BruceBack,
   simon: SimonBack,
   wahid: WahidBack,
+  bee: BeeBack,
 }
 
 export const lineDrawings = {
@@ -25,4 +30,6 @@ export const lineDrawings = {
   bruce: Bruce,
   simon: Simon,
   wahid: Wahid,
+  bee: Bee,
+  lucy: Lucy,
 }
